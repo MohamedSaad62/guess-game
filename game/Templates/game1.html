@@ -1,0 +1,32 @@
+<center><h1>Welcome to guessing game</h1></center>
+<h5>A number from 1 to 500 will be generated for you, in oreder to win you have to guess with maximum of 13 tries, you will get feedback for every wrong try wether it's
+too low or too high</h5> 
+{% for guess in user.data %}
+	{{guess}}<br>
+	{% if guess > user.random%}
+		too high<br>
+	{% elif guess < user.random %}
+		too low <br>
+	{% else %}
+		Congratulation !! you WON!!	
+	{% endif %}
+{% endfor %} 
+{% if user.len == 13 and user.stat == 0 %}
+	YOU LOST, TRY AGAIN
+{% endif %}
+
+{% if user.stat == 0 and user.len < 13 %}
+		<form action="" method="post">
+		    {% csrf_token %}
+		    <input type = 'number' placeholder="Enter guess" name="guess" required>	
+		    <br>		
+		    <button type="submit">submit</button>
+		</form>
+		
+{% endif%}
+
+
+<form action="" method="post">
+    {% csrf_token %}		
+    <button type="submit" name='again' value= 'again'>playAgin</button>
+</form>
